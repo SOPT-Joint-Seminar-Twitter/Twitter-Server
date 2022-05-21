@@ -1,2 +1,3 @@
-# node-typescript-init
-node.js, typescript, mongoDB(mongoose) boiler-plate
+# Twitter-Server
+
+🐥짹짹 서버🐥
