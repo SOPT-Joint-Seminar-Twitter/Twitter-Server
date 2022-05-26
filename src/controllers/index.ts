@@ -1,4 +1,4 @@
+import twitController from './twitController';
+
 // controller index file
-export {
-    
-}
+export { twitController };
