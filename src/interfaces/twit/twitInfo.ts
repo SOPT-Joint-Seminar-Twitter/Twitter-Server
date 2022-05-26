@@ -1,3 +1,6 @@
+import mongoose from "mongoose"
+
 export interface twitInfo {
-	content: string;
+	content: string
+	writer: mongoose.Schema.Types.ObjectId
 }

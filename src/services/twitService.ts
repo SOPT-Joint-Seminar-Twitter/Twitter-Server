@@ -1,13 +1,20 @@
+import mongoose from 'mongoose';
 import { twitCreateDto } from '../dto/twit/twitCreateDto';
 import { BaseResponseDto } from '../interfaces/common/BaseResponseDto';
 import twit from '../models/twit';
+import userMocking from '../models/userMocking';
 
 const createTwit = async (
-	twitCreateDto: twitCreateDto
+	twitCreateDto: twitCreateDto, userId: string
 ): Promise<BaseResponseDto> => {
 	try {
-		const twitt = new twit(twitCreateDto);
-
+		const userObjectId: mongoose.Types.ObjectId = userMocking[parseInt(userId) - 1]
+		const newTwitCreateDto: twitCreateDto = {
+			content: twitCreateDto.content,
+			writer: userObjectId
+		}
+		const twitt = new twit(newTwitCreateDto);
+		console.log(twitt)
 		await twitt.save();
 
 		const data = {

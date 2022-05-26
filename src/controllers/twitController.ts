@@ -21,15 +21,15 @@ const createTwit = async (req: Request, res: Response) => {
 	}
 
 	const twitCreateDto: twitCreateDto = req.body;
-
+	const userId = req.header('userId')
 	try {
-		const data = await twitService.createTwit(twitCreateDto);
+		if (!userId) {
+			res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, "필요한 값이 없습니다."))
+		} else {
+			const data = await twitService.createTwit(twitCreateDto, userId);
 
-		res
-			.status(statusCode.CREATED)
-			.send(
-				util.success(statusCode.CREATED, message.CREATE_TWIT_SUCCESS, data)
-			);
+			res.status(statusCode.CREATED).send(util.success(statusCode.CREATED, message.CREATE_TWIT_SUCCESS, data));
+		}
 	} catch (err) {
 		console.log(err);
 		res
