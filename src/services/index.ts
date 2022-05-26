@@ -1,4 +1,4 @@
-//service index file
-export {
+import twitService from './twitService';
 
-}
+//service index file
+export { twitService };
