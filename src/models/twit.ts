@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { twitInfo } from '../interfaces/twit/twitInfo';
+import user from './user';
 
 const twitSchema = new mongoose.Schema({
 	content: {
@@ -9,8 +10,20 @@ const twitSchema = new mongoose.Schema({
 
 	writer: {
 		type: mongoose.Schema.Types.ObjectId,
-		required: true
-	}
+		required: true,
+		ref: user
+	},
+
+	likeCount: {
+		type: Number,
+		required: false,
+		default: 0
+	},
+
+	likeUser: {
+		type: Object,
+		default: { "id": true }
+	},
 });
 
 export default mongoose.model<twitInfo & mongoose.Document>('twit', twitSchema);
