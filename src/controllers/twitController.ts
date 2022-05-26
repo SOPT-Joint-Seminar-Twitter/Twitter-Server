@@ -21,15 +21,38 @@ const createTwit = async (req: Request, res: Response) => {
 	}
 
 	const twitCreateDto: twitCreateDto = req.body;
-
+	const userId = req.header('userId')
 	try {
-		const data = await twitService.createTwit(twitCreateDto);
+		if (!userId) {
+			res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, "필요한 값이 없습니다."))
+		} else {
+			const data = await twitService.createTwit(twitCreateDto, userId);
 
+			res.status(statusCode.CREATED).send(util.success(statusCode.CREATED, message.CREATE_TWIT_SUCCESS, data));
+		}
+	} catch (err) {
+		console.log(err);
 		res
-			.status(statusCode.CREATED)
+			.status(statusCode.INTERNAL_SERVER_ERROR)
 			.send(
-				util.success(statusCode.CREATED, message.CREATE_TWIT_SUCCESS, data)
+				util.fail(
+					statusCode.INTERNAL_SERVER_ERROR,
+					message.INTERNAL_SERVER_ERROR
+				)
 			);
+	}
+};
+
+const getTwit = async (req: Request, res: Response) => {
+	const userId = req.header('userId')
+	try {
+		if (!userId) {
+			res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, "필요한 값이 없습니다."))
+		} else {
+			const data = await twitService.getTwit(userId);
+
+			res.status(statusCode.CREATED).send(util.success(statusCode.CREATED, message.CREATE_LIKE_SUCCESS, data));
+		}
 	} catch (err) {
 		console.log(err);
 		res
@@ -45,4 +68,5 @@ const createTwit = async (req: Request, res: Response) => {
 
 export default {
 	createTwit,
+	getTwit,
 };

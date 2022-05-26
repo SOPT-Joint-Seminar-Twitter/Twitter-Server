@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export interface likeInfo {
-    twitId: mongoose.Types.ObjectId,
+export interface RetwitInfo {
     userId: mongoose.Types.ObjectId,
+    postId: mongoose.Types.ObjectId
 }

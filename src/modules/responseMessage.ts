@@ -7,6 +7,13 @@ const message = {
 	// 트윗
 	CREATE_TWIT_SUCCESS: '트윗 작성 성공',
 	CREATE_TWIT_FAIL: '트윗 작성 실패',
+
+	// user
+	CREATE_USER_SUCCESS: '유저 생성 성공',
+	CREATE_USER_FAIL: '유저 생성 실패',
+
+	//like
+	CREATE_LIKE_SUCCESS: '좋아요 성공',
 };
 
 export default message;
