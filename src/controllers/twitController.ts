@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { twitCreateDto } from '../dto/twit/twitCreateDto';
+import { TwitCreateDto } from '../dto/twit/twitCreateDto';
 import message from '../modules/responseMessage';
 import statusCode from '../modules/statusCode';
 import util from '../modules/util';
@@ -20,15 +20,21 @@ const createTwit = async (req: Request, res: Response) => {
 			.send(util.fail(statusCode.BAD_REQUEST, message.CREATE_TWIT_FAIL));
 	}
 
-	const twitCreateDto: twitCreateDto = req.body;
-	const userId = req.header('userId')
+	const twitCreateDto: TwitCreateDto = req.body;
+	const userId = req.header('userId');
 	try {
 		if (!userId) {
-			res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, "필요한 값이 없습니다."))
+			res
+				.status(statusCode.BAD_REQUEST)
+				.send(util.fail(statusCode.BAD_REQUEST, '필요한 값이 없습니다.'));
 		} else {
 			const data = await twitService.createTwit(twitCreateDto, userId);
 
-			res.status(statusCode.CREATED).send(util.success(statusCode.CREATED, message.CREATE_TWIT_SUCCESS, data));
+			res
+				.status(statusCode.CREATED)
+				.send(
+					util.success(statusCode.CREATED, message.CREATE_TWIT_SUCCESS, data)
+				);
 		}
 	} catch (err) {
 		console.log(err);
@@ -43,15 +49,26 @@ const createTwit = async (req: Request, res: Response) => {
 	}
 };
 
+/**
+ * @router GET /twit
+ * @desc GET twit
+ * @access Public
+ */
 const getTwit = async (req: Request, res: Response) => {
-	const userId = req.header('userId')
+	const userId = req.header('userId');
 	try {
 		if (!userId) {
-			res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, "필요한 값이 없습니다."))
+			res
+				.status(statusCode.BAD_REQUEST)
+				.send(util.fail(statusCode.BAD_REQUEST, '필요한 값이 없습니다.'));
 		} else {
 			const data = await twitService.getTwit(userId);
 
-			res.status(statusCode.CREATED).send(util.success(statusCode.CREATED, message.CREATE_LIKE_SUCCESS, data));
+			res
+				.status(statusCode.CREATED)
+				.send(
+					util.success(statusCode.CREATED, message.READ_TWIT_SUCCESS, data)
+				);
 		}
 	} catch (err) {
 		console.log(err);
