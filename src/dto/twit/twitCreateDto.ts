@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-export interface twitCreateDto {
-	content: string,
-	writer: mongoose.Types.ObjectId
+export interface TwitCreateDto {
+	content: string;
+	writer: mongoose.Types.ObjectId;
 }
