@@ -39,7 +39,7 @@ const getTwit = async (userId: string) => {
 			.find({
 				writer: userObjectId,
 			})
-			.populate('writer', 'userName')
+			.populate('writer')
 			.select('-__v -retwitUser');
 		const newTwitList = await Promise.all(
 			twitList.map(async (value: any) => {
@@ -85,7 +85,7 @@ const getTwit = async (userId: string) => {
 				const twitt: any = await twit
 					.findOne({ _id: value.postId })
 					.select('-__v -retwitUser')
-					.populate('writer', 'userName');
+					.populate('writer');
 				if (Object.keys(twitt.likeUser).includes(userObjectId.toString())) {
 					if (value.likeUser[userObjectId.toString()]) {
 						return {
