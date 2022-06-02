@@ -75,7 +75,6 @@ const getTwit = async (userId: string) => {
 				}
 			})
 		);
-
 		const retwitList = await retwit.find({
 			userId: userObjectId,
 		});
@@ -87,7 +86,7 @@ const getTwit = async (userId: string) => {
 					.select('-__v -retwitUser')
 					.populate('writer');
 				if (Object.keys(twitt.likeUser).includes(userObjectId.toString())) {
-					if (value.likeUser[userObjectId.toString()]) {
+					if (value.userId[userObjectId.toString()]) {
 						return {
 							_id: twitt._id,
 							content: twitt.content,
